@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "ES2015",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "outDir": "src/js",
+    "target": "ES2017",
+    "noEmitOnError": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "importHelpers": true,
+    "baseUrl": "",
+    "paths": {
+      "@/*": ["src/ts/*"]
+    }
+  },
+  "include": ["src/**/*", "typings/**/*", "e2e/**/*"],
+  "exclude": ["node_modules"]
+}

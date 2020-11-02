@@ -1,0 +1,35 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "airbnb-typescript/base",
+    "plugin:@typescript-eslint/recommended"
+  ],
+
+  "parserOptions": {
+    "project": "tsconfig.json"
+  },
+
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+
+  "globals": {
+    "page": true,
+    "browser": true,
+    "context": true,
+    "jestPuppeteer": true
+  },
+
+  "plugins": ["jest"],
+
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": 2,
+    "@typescript-eslint/no-inferrable-types": 0,
+    "@typescript-eslint/no-explicit-any": 2,
+    "@typescript-eslint/camelcase": 0,
+    "lines-between-class-members": 0
+  }
+}
