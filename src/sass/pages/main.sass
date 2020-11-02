@@ -1,0 +1,92 @@
+@import "../mixins"
+@import "../variables"
+
+.main-page
+
+  &__container
+    width: 100%
+    max-width: $main-page-content-width
+    margin: 0 auto
+    padding: 0rem 2rem
+
+.header
+
+  &__wrapper-content
+    padding: 1.5rem 0rem
+    box-shadow: 0rem .2rem .5rem .2rem rgba(60, 64, 67, 0.15)
+
+  &__content
+    @include flex(flex, column, center, center)
+
+  &__title
+    font-size: 2rem
+    font-weight: 500
+
+
+.section-table
+
+  &__wrapper-content
+    width: 100%
+    height: 25rem
+    @include flex(flex, column, center, false)
+    background-color: #F1F3F4
+
+  &-button
+    border: .1rem solid #DADCE0
+    display: inline-block
+    width: 100%
+    max-width: 20rem
+    height: 15rem
+    background-color: white
+    cursor: pointer
+    border-radius: .4rem
+    transition: border-color .3s
+    @include flex(flex, column, center, center)
+
+    &:hover
+      border-color: #0F9D58
+
+    &__title
+      font-size: 1.8rem
+
+.section-created-tables
+
+  &__wrapper-content
+    margin-top: 1.5rem
+
+  &__titles
+    @include flex(flex, row, space-between, false)
+
+    span
+      font-size: 1.8rem
+
+
+  &__wrapper-list
+    margin-top: 1.5rem
+
+  &__list
+    list-style: none
+    padding: 0
+    margin: 0
+
+  &__item
+    cursor: pointer
+    padding: 1rem 0rem
+    border-radius: 4rem
+    transition: background-color .3s
+    @include flex(flex, row, space-between, center)
+
+    &:hover
+      background-color: #E6F4EA
+
+  &__item-name
+    font-size: 1.6rem
+    padding: 1rem 1.5rem
+
+  &__wrapper-item-opened
+    width: 100%
+    max-width: 15rem
+    text-align: center
+
+  &__item-opened
+    font-size: 1.3rem
