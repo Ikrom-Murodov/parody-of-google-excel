@@ -1,0 +1,19 @@
+@import ../variables
+@import ../mixins
+
+.excel-toolbar
+
+  &__container
+    height: $toolbar-component-height
+    padding: $container-padding
+    position: absolute
+    width: 100%
+    top: $header-component-height
+    @include border(.1rem, solid, $border-color)
+    @include flex(flex, false, false, center)
+
+  &__button
+    @include button()
+
+  &__button_active i
+    color: #188038

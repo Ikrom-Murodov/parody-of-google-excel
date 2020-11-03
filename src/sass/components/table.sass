@@ -1,0 +1,62 @@
+@import ../variables
+@import ../mixins
+
+.excel-table
+
+  &__container
+    position: absolute
+    top: $header-component-height + $toolbar-component-height + $formula-component-height
+    overflow: auto
+    bottom: 0
+    width: 100%
+
+  &__rows
+    @include flex(flex, false, false, false)
+
+
+.excel-table-rows
+
+  &__data
+    @include flex(flex, true, false, false)
+
+
+  &__info
+    min-width: $min-width-info + .1rem
+    position: relative
+    color: $main-color
+    min-height: 2.8rem
+    background-color:  #F8F9FA
+    @include border(.1rem, solid, $border-color, false)
+    @include flex(flex, column, center, center)
+
+  &__column
+    position: relative
+    width: 15rem
+    min-width: 10rem
+    min-height: 2.8rem
+    background-color: #F8F9FA
+    @include border(.1rem, solid, $border-color, false, true, true, false)
+    @include flex(flex, column, center, center)
+
+  &__column-resize
+    top: 0
+    right: 0
+    width: .4rem
+
+  &__info-resize
+    width: 100%
+    height: .4rem
+
+  &__cell
+    width: 15rem
+    min-width: 10rem
+    min-height: 2.8rem
+    white-space: nowrap
+    font-size: 1.6rem
+    padding: .5rem
+    outline: none
+    @include border(.1rem, solid, $border-color, false, true, true, false)
+
+  &__cell_selected
+    @include border(.2rem, solid, #1A73E8)
+
