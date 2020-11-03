@@ -38,8 +38,12 @@ function createColumnsTemplate(): string {
  * This function returns the cell template of the table component.
  * @return {string} - Html template
  */
-function cellTemplate(): string {
+function cellTemplate(index?: unknown): string {
+  if (index) {
+    console.log(index);
+  }
   const $template = $.create('div', 'excel-table-rows__cell');
+  $template.addAttr('contenteditable', '');
 
   return $template.$el.outerHTML;
 }
@@ -49,14 +53,15 @@ function cellTemplate(): string {
  *   in which the rest of the templates will be located
  *
  * @param {string} content - Content that will be inside this template.
+ * @param {number=} index - Content for 'excel-table-rows__info'
  * @return {string} - Html template
  */
-function rowTemplate(content: string): string {
+function rowTemplate(content: string, index?: number): string {
   const $template = $.create('div', 'excel-table-rows excel-table__rows');
 
   $template.html(`
     <div class="excel-table-rows__info">
-    
+      ${index || ''}
     </div>
     
     
@@ -88,7 +93,7 @@ export function componentTemplate(rowsCount: number = 150): HTMLElement {
       .map(cellTemplate)
       .join(' ');
 
-    rows.push(rowTemplate(cells));
+    rows.push(rowTemplate(cells, index + 1));
   }
 
   return $wrapper.html(rows.join(' ')).$el;
