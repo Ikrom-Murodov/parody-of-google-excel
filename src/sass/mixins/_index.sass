@@ -1,0 +1,45 @@
+@mixin flex($display, $flex-direction, $justify-content, $align-items)
+  @if $display
+    display: $display
+
+  @if $flex-direction
+    flex-direction: $flex-direction
+
+  @if $justify-content
+    justify-content: $justify-content
+
+  @if $align-items
+    align-items: $align-items
+
+
+@mixin button($color: #188038)
+  cursor: pointer
+  padding: .5rem
+  border-radius: .3rem
+  transition: background-color .3s
+  display: inline-block
+
+  & i
+    font-size: 2.5rem
+    color: $button-color
+
+  &:hover
+    background-color: $button-hover-bg-color
+
+  &:active, &.active
+    & i
+      color: $color
+
+
+@mixin border($size, $type, $color, $top: true, $right: true, $bottom: true, $left: true)
+  @if $top
+    border-top: $size $type $color
+
+  @if $right
+    border-right: $size $type $color
+
+  @if $bottom
+    border-bottom: $size $type $color
+
+  @if $left
+    border-left: $size $type $color

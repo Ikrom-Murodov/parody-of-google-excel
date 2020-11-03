@@ -1,0 +1,32 @@
+@import "../variables"
+@import "../mixins"
+
+.excel-header
+
+  &__container
+    width: 100%
+    padding: $container-padding
+    height: $header-component-height
+    position: absolute
+    @include flex(flex, false, space-between, center)
+
+  &__input
+    color: $main-color
+    font-size: 2rem
+    padding: .5rem
+    outline: none
+    border-radius: .4rem
+    transition: border .3s
+    @include border(.1rem, solid, transparent)
+
+    &:hover
+      @include border(.1rem, solid, $border-color)
+
+    &:focus
+      @include border(.1rem, solid, #1a73e8)
+
+  &__button
+    @include button()
+
+  &__button:last-child
+    @include button(red)

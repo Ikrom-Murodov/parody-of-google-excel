@@ -1,6 +1,6 @@
 {
   "name": "parody-of-google-excel",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "This project is a parody of google excel.",
   "main": "src/js/index.js",
   "scripts": {
@@ -20,6 +20,7 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-typescript": "^7.10.4",
     "@types/expect-puppeteer": "^4.4.5",
@@ -66,6 +67,11 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
-    "core-js": "3"
+    "add-event-for-dom-elements": "^1.0.2",
+    "core-js": "3",
+    "helper-for-dom": "^1.0.1",
+    "observer-pattern-js": "^1.0.1",
+    "parody-of-redux": "^2.0.1",
+    "router-for-dom": "^1.0.2"
   }
 }
