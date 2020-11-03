@@ -1,0 +1,29 @@
+@import ../variables
+@import ../mixins
+
+.excel-formula
+
+  &__container
+    position: absolute
+    top: $header-component-height + $toolbar-component-height
+    height: $formula-component-height
+    width: 100%
+    @include border(.1rem, solid, $border-color, false)
+    @include flex(flex, false, false, center)
+
+  &__info
+    font-size: 2rem
+    font-style: italic
+    color: $main-color
+    min-width: $min-width-info
+    text-align: center
+    @include border(.1rem, solid, $border-color, false, true, false, false)
+
+  &__input
+    width: 100%
+    height: 100%
+    padding: .4rem
+    outline: none
+    font-size: 1.8rem
+    color: #4A4A4A
+
