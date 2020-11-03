@@ -1,6 +1,6 @@
 {
   "name": "parody-of-google-excel",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "This project is a parody of google excel.",
   "main": "src/js/index.js",
   "scripts": {
