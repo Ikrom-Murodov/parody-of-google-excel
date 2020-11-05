@@ -1,19 +1,6 @@
-import { DomListener, IDomParams } from 'add-event-for-dom-elements';
-import { Router } from 'router-for-dom';
-import {
-  IEmitterCallBack,
-  IEventEmitter,
-  IEmitterSubscriber,
-} from 'observer-pattern-js';
-
-/**
- * Interface for parameter of the ExcelComponent class.
- * @interface
- */
-interface IExcelComponentParams extends IDomParams {
-  emitter: IEventEmitter;
-  router: Router;
-}
+import { DomListener } from 'add-event-for-dom-elements';
+import { IEmitterCallBack, IEmitterSubscriber } from 'observer-pattern-js';
+import { IExcelComponentParams } from '@/core/interface';
 
 export class ExcelComponent extends DomListener {
   /**
