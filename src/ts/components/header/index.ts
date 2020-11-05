@@ -1,11 +1,29 @@
-import { IComponent } from '@/core/interface';
-import { $ } from 'helper-for-dom';
+import { ExcelComponent } from '@/core/ExcelComponent';
 
-export class Header implements IComponent {
+import {
+  IComponent,
+  IComponentParams,
+  IComponentSettings,
+} from '@/core/interface';
+
+import { $, IDomHelper } from 'helper-for-dom';
+
+export class Header extends ExcelComponent implements IComponent {
   static className = 'excel-header';
 
+  private componentParams: IComponentParams;
+
+  constructor({ componentParams, parentData }: IComponentSettings) {
+    super({
+      eventNames: [],
+      ...parentData,
+    });
+
+    this.componentParams = componentParams;
+  }
+
   public toHtml(): HTMLElement {
-    const $wrapper = $.create('div', 'excel-header__container');
+    const $wrapper: IDomHelper = $.create('div', 'excel-header__container');
 
     $wrapper.html(`
       <div class="excel-header__wrapper-input">
