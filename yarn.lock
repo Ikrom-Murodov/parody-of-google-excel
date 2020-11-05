@@ -7747,10 +7747,10 @@ object.values@^1.1.0, object.values@^1.1.1:
     function-bind "^1.1.1"
     has "^1.0.3"
 
-observer-pattern-js@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/observer-pattern-js/-/observer-pattern-js-1.0.1.tgz#67b936a958125ec14146251f939973f32b0727ec"
-  integrity sha512-i4+DEeCho8OLTLjOMLN878Zj3v6SuHeYvB4SB6eTJQeApraHTujKGOCg4Gjj8uDhVQF7lZh5cuhW+9f0y87B3Q==
+observer-pattern-js@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/observer-pattern-js/-/observer-pattern-js-1.1.0.tgz#0fe9be2fbd12156544e6aa3faa10100b11f6848b"
+  integrity sha512-iomdnArqENv7FlM6qqdl+eeE6LR0TElQh2Pivbw8iv5hDPRIZEL9OBuJmsSv90qkdbVkEMERAGAD6NEJoqTctw==
 
 obuf@^1.0.0, obuf@^1.1.2:
   version "1.1.2"
