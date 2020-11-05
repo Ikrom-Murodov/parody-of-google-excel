@@ -1,5 +1,6 @@
 import { IPage, IPageParams } from 'router-for-dom';
-import { $ } from 'helper-for-dom';
+import { $, IDomHelper } from 'helper-for-dom';
+import { EventEmitter, IEventEmitter } from 'observer-pattern-js';
 import { IComponent } from '@/core/interface';
 
 // components for table page
@@ -14,6 +15,12 @@ export class TablePage implements IPage {
    */
   private classInstances: IComponent[] = [];
 
+  /**
+   * This field is an instance of the EventEmitter class
+   * @private - This field is private
+   */
+  private emitter: IEventEmitter = new EventEmitter();
+
   constructor(private params: IPageParams) {
     this.init();
   }
@@ -25,9 +32,19 @@ export class TablePage implements IPage {
     const $childRoot = $.create('div', 'excel__container');
 
     this.classInstances = arrayOfComponents.map((Component) => {
-      const $wrapperEl = $.create('div', Component.className);
+      const $wrapperEl: IDomHelper = $.create('div', Component.className);
 
-      const component = new Component();
+      const component = new Component({
+        componentParams: {
+          $root: $wrapperEl,
+        },
+
+        parentData: {
+          element: $wrapperEl.$el,
+          emitter: this.emitter,
+          router: this.params.router,
+        },
+      });
 
       $wrapperEl.html(component.toHtml());
       $childRoot.append($wrapperEl);

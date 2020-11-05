@@ -70,8 +70,8 @@
     "add-event-for-dom-elements": "^1.0.2",
     "core-js": "3",
     "helper-for-dom": "^1.0.1",
-    "observer-pattern-js": "^1.0.1",
+    "observer-pattern-js": "^1.1.0",
     "parody-of-redux": "^2.0.1",
-    "router-for-dom": "^1.0.2"
+    "router-for-dom": "^1.1.0"
   }
 }
