@@ -26,5 +26,9 @@ export class Table extends ExcelComponent implements IComponent {
     return componentTemplate(1000);
   }
 
+  public init(): void {
+    super.init();
+  }
+
   public destroy(): void {}
 }

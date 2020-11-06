@@ -32,5 +32,9 @@ export class Formula extends ExcelComponent implements IComponent {
     return $wrapper.$el;
   }
 
+  public init(): void {
+    super.init();
+  }
+
   public destroy(): void {}
 }

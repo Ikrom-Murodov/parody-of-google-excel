@@ -10,6 +10,7 @@ import { IDomHelper } from 'helper-for-dom';
 export interface IComponent {
   toHtml(): HTMLElement;
   destroy(): void;
+  init(): void;
 }
 
 /**
