@@ -1,17 +1,12 @@
 import { $, IDomHelper } from 'helper-for-dom';
-
 import { ExcelComponent } from '@/core/ExcelComponent';
-
 import {
   IComponent,
   IComponentSettings,
   IComponentParams,
 } from '@/core/interface';
-
 import { createArray } from '@/utils';
-
 import { TableSelectCell } from './table.select.cell';
-
 import { componentTemplate } from './table.component.template';
 
 /**
@@ -31,7 +26,7 @@ export class Table extends ExcelComponent implements IComponent {
 
   constructor({ componentParams, parentData }: IComponentSettings) {
     super({
-      eventNames: ['mousedown'],
+      eventNames: ['mousedown', 'keydown'],
       ...parentData,
     });
 
@@ -70,6 +65,58 @@ export class Table extends ExcelComponent implements IComponent {
       }
     }
   };
+
+  public onKeydown = (event: KeyboardEvent): void => {
+    const keys: string[] = [
+      'Enter',
+      'Tab',
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowDown',
+      'ArrowUp',
+    ];
+
+    const { key } = event;
+
+    if (keys.includes(key)) {
+      event.preventDefault();
+
+      const cellId = this.getCellId(this.selectCell.getCurrentElement);
+
+      const $next = this.componentParams.$root.find(
+        this.nextSelector(key, cellId),
+      ) as IDomHelper;
+
+      this.selectCell.select($next);
+    }
+  };
+
+  public nextSelector(key: string, cellId: ICellId): string {
+    switch (key) {
+      case 'Enter':
+      case 'ArrowDown':
+        cellId.row += 1;
+        break;
+
+      case 'ArrowUp':
+        if (cellId.row) cellId.row -= 1;
+        break;
+
+      case 'ArrowLeft':
+        if (cellId.column) cellId.column -= 1;
+        break;
+
+      case 'ArrowRight':
+      case 'Tab':
+        if (cellId.column < 25) cellId.column += 1;
+        break;
+
+      default:
+        break;
+    }
+
+    return `[data-cell-id="${cellId.row}:${cellId.column}"]`;
+  }
 
   public getCellId($element: IDomHelper): ICellId {
     const [row, column] = $element.dataset().cellId!.split(':');
