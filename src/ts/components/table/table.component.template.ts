@@ -17,7 +17,11 @@ function columnTemplate(_: unknown, index: number): string {
   const value: string = String.fromCharCode(charCode.A + index);
   const $element = $.create('div', 'excel-table-rows__column');
   $element.addAttr('data-column-id', String(index));
-  $element.html(value);
+  $element.addAttr('data-resize-element', '');
+  $element.addAttr('data-min-width', '100');
+  $element.html(
+    `${value} <div class="excel-table-rows__column-resize" data-resize-type="column"></div>`,
+  );
 
   return $element.$el.outerHTML;
 }
@@ -64,10 +68,14 @@ function cellTemplate(rowId: number) {
  */
 function rowTemplate(content: string, index?: number): string {
   const $template = $.create('div', 'excel-table-rows excel-table__rows');
+  const resize = index
+    ? '<div class="excel-table-rows__info-resize" data-resize-type="row"></div>'
+    : '';
 
   $template.html(`
-    <div class="excel-table-rows__info">
+    <div class="excel-table-rows__info" data-min-height="28" data-resize-element>
       ${index || ''}
+      ${resize}
     </div>
     
     
