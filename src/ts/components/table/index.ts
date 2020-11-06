@@ -10,6 +10,7 @@ import { TableSelectCell } from './table.select.cell';
 import { componentTemplate } from './table.component.template';
 
 import { getCellId, getCellIds, nextSelector } from './utils';
+import resizeTable from './resize.table';
 
 export class Table extends ExcelComponent implements IComponent {
   private componentParams: IComponentParams;
@@ -60,6 +61,10 @@ export class Table extends ExcelComponent implements IComponent {
         } else {
           this.addFocusToItem($target);
         }
+      }
+
+      if ($target.dataset().resizeType) {
+        resizeTable($target, this.componentParams.$root);
       }
     }
   };
