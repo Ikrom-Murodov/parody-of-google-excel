@@ -19,7 +19,7 @@ export class TableSelectCell {
    * This field contains all the HTML elements you selected.
    * @private
    */
-  private currentGroupElement!: IDomHelper[];
+  private currentGroupElement: IDomHelper[] = [];
 
   constructor(private params: ITableSelectCellParams) {}
 

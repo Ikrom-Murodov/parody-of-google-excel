@@ -48,6 +48,7 @@ function cellTemplate(rowId: number) {
     $template.addAttr('contenteditable', '');
     $template.addAttr('data-column-id', String(columnId));
     $template.addAttr('data-cell-id', String(id));
+    $template.addAttr('data-type', 'cell');
 
     return $template.$el.outerHTML;
   };
