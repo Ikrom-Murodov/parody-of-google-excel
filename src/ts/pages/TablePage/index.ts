@@ -54,4 +54,8 @@ export class TablePage implements IPage {
     $root.append($childRoot);
     return $root.$el;
   }
+
+  public afterRenderElement(): void {
+    this.classInstances.forEach((component) => component.init());
+  }
 }

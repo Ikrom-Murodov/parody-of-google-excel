@@ -16,7 +16,12 @@ const charCode = {
 function columnTemplate(_: unknown, index: number): string {
   const value: string = String.fromCharCode(charCode.A + index);
   const $element = $.create('div', 'excel-table-rows__column');
-  $element.html(value);
+  $element.addAttr('data-column-id', String(index));
+  $element.addAttr('data-resize-element', '');
+  $element.addAttr('data-min-width', '100');
+  $element.html(
+    `${value} <div class="excel-table-rows__column-resize" data-resize-type="column"></div>`,
+  );
 
   return $element.$el.outerHTML;
 }
@@ -35,17 +40,22 @@ function createColumnsTemplate(): string {
 }
 
 /**
- * This function returns the cell template of the table component.
- * @return {string} - Html template
+ * This function returns a function that returns the cell
+ *   template of the table component.
+ * @return {Function}
  */
-function cellTemplate(index?: unknown): string {
-  if (index) {
-    console.log(index);
-  }
-  const $template = $.create('div', 'excel-table-rows__cell');
-  $template.addAttr('contenteditable', '');
+function cellTemplate(rowId: number) {
+  return (_: unknown, columnId: number): string => {
+    const id = `${rowId}:${columnId}`;
 
-  return $template.$el.outerHTML;
+    const $template = $.create('div', 'excel-table-rows__cell');
+    $template.addAttr('contenteditable', '');
+    $template.addAttr('data-column-id', String(columnId));
+    $template.addAttr('data-cell-id', String(id));
+    $template.addAttr('data-type', 'cell');
+
+    return $template.$el.outerHTML;
+  };
 }
 
 /**
@@ -58,10 +68,14 @@ function cellTemplate(index?: unknown): string {
  */
 function rowTemplate(content: string, index?: number): string {
   const $template = $.create('div', 'excel-table-rows excel-table__rows');
+  const resize = index
+    ? '<div class="excel-table-rows__info-resize" data-resize-type="row"></div>'
+    : '';
 
   $template.html(`
-    <div class="excel-table-rows__info">
+    <div class="excel-table-rows__info" data-min-height="28" data-resize-element>
       ${index || ''}
+      ${resize}
     </div>
     
     
@@ -90,7 +104,7 @@ export function componentTemplate(rowsCount: number = 150): HTMLElement {
   for (let index = 0; index < rowsCount; index += 1) {
     const cells: string = new Array(charCode.size())
       .fill('')
-      .map(cellTemplate)
+      .map(cellTemplate(index))
       .join(' ');
 
     rows.push(rowTemplate(cells, index + 1));
