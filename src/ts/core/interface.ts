@@ -14,6 +14,14 @@ export interface IComponent {
 }
 
 /**
+ * @interface
+ */
+export interface ICellId {
+  row: number;
+  column: number;
+}
+
+/**
  * Interface for parameter of the ExcelComponent class.
  * @interface
  */
