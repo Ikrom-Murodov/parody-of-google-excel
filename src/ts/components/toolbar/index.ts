@@ -26,5 +26,9 @@ export class Toolbar extends ExcelComponent implements IComponent {
     return componentTemplate();
   }
 
+  public init(): void {
+    super.init();
+  }
+
   public destroy(): void {}
 }

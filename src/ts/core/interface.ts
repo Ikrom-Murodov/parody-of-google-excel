@@ -10,6 +10,15 @@ import { IDomHelper } from 'helper-for-dom';
 export interface IComponent {
   toHtml(): HTMLElement;
   destroy(): void;
+  init(): void;
+}
+
+/**
+ * @interface
+ */
+export interface ICellId {
+  row: number;
+  column: number;
 }
 
 /**
