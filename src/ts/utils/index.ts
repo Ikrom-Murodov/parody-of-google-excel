@@ -25,3 +25,15 @@ export const storage = {
     localStorage.setItem(key, value);
   },
 };
+
+/**
+ * This function creates a new array and fills it with a number.
+ * @param { number } start - Starting element of the array.
+ * @param { number } end - The last element of the array.
+ * @return {Array} - Returns an array of numbers.
+ */
+export function createArray(start: number, end: number): number[] {
+  // eslint-disable-next-line no-param-reassign
+  if (start > end) [end, start] = [start, end];
+  return new Array(end - start + 1).fill('').map((_, index) => start + index);
+}
