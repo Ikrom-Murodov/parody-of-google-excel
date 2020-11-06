@@ -5299,10 +5299,10 @@ he@^1.2.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-helper-for-dom@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/helper-for-dom/-/helper-for-dom-1.0.1.tgz#433b2645a654b2eb8a117fb24b1490a37d4bb428"
-  integrity sha512-LQfA3RkRSYZbIhB6Bx9wxr9IGfN5aFouVUWSGIILBynx9HK0oyxUNXhepGgAsMNu27D/cuwNYNXbpQZ0PoKDZA==
+helper-for-dom@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/helper-for-dom/-/helper-for-dom-1.1.0.tgz#70a6898a97568c7282b6966cce90e601d101342d"
+  integrity sha512-Y0SXTB7ngJpDaJcYuOYJp1vbig/+neUn9BUgY4CkU81BmPhDnLSuzcuzBncpqynHqW8gHHa0xbJftxC362UfVQ==
 
 hex-color-regex@^1.1.0:
   version "1.1.0"
