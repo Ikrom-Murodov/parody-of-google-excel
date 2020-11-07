@@ -6,11 +6,12 @@ import { TRootActions, TRootState } from '@/store/';
 export class ExcelComponent extends DomListener {
   /**
    * This field contains a list of all subscribers.
-   * @private
+   *  @private - This field is not available to instances of the
+   *    ExcelComponent class.
    */
   private subscribers: IEmitterSubscriber[] = [];
 
-  readonly subscribeToState: Array<keyof TRootState>;
+  readonly subscribeToChangeStorage: Array<keyof TRootState>;
 
   constructor(private excelParams: IExcelComponentParams) {
     super({
@@ -18,7 +19,7 @@ export class ExcelComponent extends DomListener {
       eventNames: excelParams.eventNames,
     });
 
-    this.subscribeToState = excelParams.subscribeToState;
+    this.subscribeToChangeStorage = excelParams.subscribeToChangeStorage;
   }
 
   /**

@@ -14,7 +14,7 @@ export interface IComponent {
   destroy(): void;
   init(): void;
   storeChanged(state: TRootState): void;
-  subscribeToState: Array<keyof TRootState>;
+  subscribeToChangeStorage: Array<keyof TRootState>;
 }
 
 /**
@@ -36,7 +36,7 @@ export interface IExcelComponentParams extends IDomParams {
   router: IRouter;
   $root: IDomHelper;
   store: TStore;
-  subscribeToState: Array<keyof TRootState>;
+  subscribeToChangeStorage: Array<keyof TRootState>;
 }
 
 /**
@@ -64,6 +64,7 @@ export interface IComponentSettings {
 }
 
 /**
+ * Interface for table cells.
  * @interface
  */
 export interface ICellStyles {

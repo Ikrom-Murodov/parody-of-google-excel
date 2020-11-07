@@ -1,34 +1,54 @@
 import { $, IDomHelper, TDomHelperCssParams } from 'helper-for-dom';
-import { ExcelComponent } from '@/core/ExcelComponent';
 import { IComponent, IComponentSettings, ICellId } from '@/core/interface';
-import { TableSelectCell } from './table.select.cell';
-import { componentTemplate } from './table.component.template';
+import { ExcelComponent } from '@/core/ExcelComponent';
 import { TRootState } from '@/store';
 
 import { getCellId, getCellIds, nextSelector } from './utils';
+import { componentTemplate } from './table.component.template';
+import { TableSelectCell } from './table.select.cell';
 import resizeTable from './resize.table';
 
 export class Table extends ExcelComponent implements IComponent {
+  static className = 'excel-table';
+
+  /**
+   * This field contains an instance of the TableSelectCell class.
+   * @private - This field is not available to instances of the Table class.
+   */
   private selectCell: TableSelectCell = new TableSelectCell({
     activeClass: 'excel-table-rows__cell_selected',
   });
 
+  /**
+   * This field contains the main html element of the component.
+   * @readonly
+   */
   readonly $root: IDomHelper;
 
   constructor({ componentParams, parentData }: IComponentSettings) {
     super({
       eventNames: ['mousedown', 'keydown', 'input'],
-      subscribeToState: [],
+      subscribeToChangeStorage: [],
       ...parentData,
     });
 
     this.$root = componentParams.$root;
   }
 
-  static className = 'excel-table';
-
+  /**
+   * If the component is subscribed to change this method will be called
+   *   when the state is updated
+   * @param {TRootState} state - Updated state of the store.
+   * @public - This method is available to all instances of the Table class.
+   *   But this method is not intended to be called directly.
+   */
   public storeChanged(state: TRootState) {}
 
+  /**
+   * This method will be called to get the component template.
+   * @public - This method is available to all instances of the Table class.
+   * @return {HTMLElement} - Returns the page template.
+   */
   public toHtml(): HTMLElement {
     return componentTemplate(1000);
   }
@@ -38,11 +58,27 @@ export class Table extends ExcelComponent implements IComponent {
     this.$emit('table:input', $element.getText());
   }
 
+  /**
+   * This method will be called when a input event occurs on the component
+   *   template.
+   * @param {MouseEvent} event
+   * @public - This method is available to all instances of the Table class.
+   *   But this method is not intended to be called directly
+   * @return { void } - This method returns nothing.
+   */
   public onInput = (event: MouseEvent) => {
     const $target: IDomHelper = $(event.target as HTMLElement);
     this.$emit('table:input', $target.getText());
   };
 
+  /**
+   * This method will be called when a mousedown event occurs on the component
+   *   template.
+   * @param {MouseEvent} event
+   * @public - This method is available to all instances of the Table class.
+   *   But this method is not intended to be called directly
+   * @return { void } - This method returns nothing.
+   */
   public onMousedown = (event: MouseEvent): void => {
     if (event.target instanceof HTMLElement) {
       const $target: IDomHelper = $(event.target);
@@ -74,6 +110,14 @@ export class Table extends ExcelComponent implements IComponent {
     }
   };
 
+  /**
+   * This method will be called when a keydown event occurs on the component
+   *   template.
+   * @param {MouseEvent} event
+   * @public - This method is available to all instances of the Table class.
+   *   But this method is not intended to be called directly
+   * @return { void } - This method returns nothing.
+   */
   public onKeydown = (event: KeyboardEvent): void => {
     const keys: string[] = [
       'Enter',
@@ -97,6 +141,11 @@ export class Table extends ExcelComponent implements IComponent {
     }
   };
 
+  /**
+   * This method will be called to initialize the component.
+   * @public - This method is available to all instances of the Table class.
+   * @return { void } - This method returns nothing.
+   */
   public init(): void {
     super.init();
 
@@ -117,5 +166,10 @@ export class Table extends ExcelComponent implements IComponent {
     });
   }
 
+  /**
+   * This method will be called to destroy the component.
+   * @public - This method is available to all instances of the Table class.
+   * @return { void } - This method returns nothing.
+   */
   public destroy(): void {}
 }
