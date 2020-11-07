@@ -16,7 +16,7 @@ export class Table extends ExcelComponent implements IComponent {
 
   constructor({ componentParams, parentData }: IComponentSettings) {
     super({
-      eventNames: ['mousedown', 'keydown'],
+      eventNames: ['mousedown', 'keydown', 'input'],
       ...parentData,
     });
 
@@ -31,7 +31,13 @@ export class Table extends ExcelComponent implements IComponent {
 
   public addFocusToItem($element: IDomHelper): void {
     this.selectCell.select($element);
+    this.$emit('table:input', $element.getText());
   }
+
+  public onInput = (event: MouseEvent) => {
+    const $target: IDomHelper = $(event.target as HTMLElement);
+    this.$emit('table:input', $target.getText());
+  };
 
   public onMousedown = (event: MouseEvent): void => {
     if (event.target instanceof HTMLElement) {
@@ -91,6 +97,16 @@ export class Table extends ExcelComponent implements IComponent {
     super.init();
 
     this.addFocusToItem(this.$root.find('[data-cell-id="0:0"]') as IDomHelper);
+
+    this.$on('formula:input', (text: unknown): void => {
+      if (typeof text === 'string') {
+        this.selectCell.getCurrentElement.updateText(text);
+      }
+    });
+
+    this.$on('formula:done', (): void => {
+      this.selectCell.getCurrentElement.focus();
+    });
   }
 
   public destroy(): void {}
