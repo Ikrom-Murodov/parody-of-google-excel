@@ -1,3 +1,5 @@
+import { $, IDomHelper } from 'helper-for-dom';
+
 import { ExcelComponent } from '@/core/ExcelComponent';
 
 import {
@@ -15,7 +17,7 @@ export class Toolbar extends ExcelComponent implements IComponent {
 
   constructor({ componentParams, parentData }: IComponentSettings) {
     super({
-      eventNames: [],
+      eventNames: ['click'],
       ...parentData,
     });
 
@@ -25,6 +27,16 @@ export class Toolbar extends ExcelComponent implements IComponent {
   public toHtml(): HTMLElement {
     return componentTemplate();
   }
+
+  public onClick = (event: MouseEvent): void => {
+    const $target: IDomHelper = $(event.target as HTMLElement);
+    const { type, value } = $target.dataset();
+
+    if (type === 'button') {
+      const styles = JSON.parse(value as string);
+      this.$emit('toolbar:applyStyle', styles);
+    }
+  };
 
   public init(): void {
     super.init();
