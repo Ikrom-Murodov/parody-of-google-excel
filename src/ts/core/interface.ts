@@ -28,6 +28,7 @@ export interface ICellId {
 export interface IExcelComponentParams extends IDomParams {
   emitter: IEventEmitter;
   router: IRouter;
+  $root: IDomHelper;
 }
 
 /**
@@ -49,5 +50,16 @@ export interface IComponentSettings {
     emitter: IEventEmitter;
     router: IRouter;
     element: HTMLElement;
+    $root: IDomHelper;
   };
+}
+
+/**
+ * @interface
+ */
+export interface ICellStyles {
+  fontStyle: string;
+  fontWeight: string;
+  textAlign: string;
+  textDecoration: string;
 }
