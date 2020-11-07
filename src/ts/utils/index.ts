@@ -37,3 +37,17 @@ export function createArray(start: number, end: number): number[] {
   if (start > end) [end, start] = [start, end];
   return new Array(end - start + 1).fill('').map((_, index) => start + index);
 }
+
+/**
+ * This function compares two values for equality and returns the result
+ *   of the comparison to a boolean type.
+ * @param {*} a Parameter comparison.
+ * @param {*} b Parameter comparison.
+ * @return {boolean} - Returns the result of the comparison to a boolean type.
+ */
+export function isEqual(a: unknown, b: unknown): boolean {
+  if (typeof a === 'object' && typeof b === 'object') {
+    return JSON.stringify(a) === JSON.stringify(b);
+  }
+  return a === b;
+}
