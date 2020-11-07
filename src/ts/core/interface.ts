@@ -2,6 +2,8 @@ import { IDomParams } from 'add-event-for-dom-elements';
 import { IEventEmitter } from 'observer-pattern-js';
 import { IRouter } from 'router-for-dom';
 import { IDomHelper } from 'helper-for-dom';
+import { IStore } from 'parody-of-redux';
+import { TRootState, TRootActions } from '@/store';
 
 /**
  * Interface for components.
@@ -21,6 +23,8 @@ export interface ICellId {
   column: number;
 }
 
+export type TStore = IStore<TRootState, TRootActions>;
+
 /**
  * Interface for parameter of the ExcelComponent class.
  * @interface
@@ -29,6 +33,7 @@ export interface IExcelComponentParams extends IDomParams {
   emitter: IEventEmitter;
   router: IRouter;
   $root: IDomHelper;
+  store: TStore;
 }
 
 /**
@@ -49,8 +54,9 @@ export interface IComponentSettings {
   parentData: {
     emitter: IEventEmitter;
     router: IRouter;
-    element: HTMLElement;
     $root: IDomHelper;
+    store: TStore;
+    element: HTMLElement;
   };
 }
 
