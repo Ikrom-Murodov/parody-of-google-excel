@@ -13,6 +13,8 @@ export interface IComponent {
   toHtml(): HTMLElement;
   destroy(): void;
   init(): void;
+  storeChanged(state: TRootState): void;
+  subscribeToState: Array<keyof TRootState>;
 }
 
 /**
@@ -34,6 +36,7 @@ export interface IExcelComponentParams extends IDomParams {
   router: IRouter;
   $root: IDomHelper;
   store: TStore;
+  subscribeToState: Array<keyof TRootState>;
 }
 
 /**

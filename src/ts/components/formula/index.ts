@@ -1,6 +1,6 @@
 import { ExcelComponent } from '@/core/ExcelComponent';
 import { IComponent, IComponentSettings } from '@/core/interface';
-
+import { TRootState, actions } from '@/store';
 import { $, IDomHelper } from 'helper-for-dom';
 
 export class Formula extends ExcelComponent implements IComponent {
@@ -13,11 +13,14 @@ export class Formula extends ExcelComponent implements IComponent {
   constructor({ componentParams, parentData }: IComponentSettings) {
     super({
       eventNames: ['input', 'keydown'],
+      subscribeToState: [],
       ...parentData,
     });
 
     this.$root = componentParams.$root;
   }
+
+  public storeChanged(state: TRootState) {}
 
   public onInput = (event: InputEvent): void => {
     const $target: IDomHelper = $(event.target as HTMLElement);
@@ -32,6 +35,7 @@ export class Formula extends ExcelComponent implements IComponent {
       event.preventDefault();
 
       this.$emit('formula:done');
+      this.$dispatch(actions.changeTextCurrentCell(event.key));
     }
   };
 

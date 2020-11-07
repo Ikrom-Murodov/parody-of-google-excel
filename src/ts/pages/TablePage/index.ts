@@ -1,11 +1,12 @@
-import { createStore } from 'parody-of-redux';
+import { createStore, IUnsubscribe } from 'parody-of-redux';
 import { IPage, IPageParams } from 'router-for-dom';
 import { $, IDomHelper } from 'helper-for-dom';
 import { EventEmitter, IEventEmitter } from 'observer-pattern-js';
 import { IComponent, TStore } from '@/core/interface';
+import { isEqual } from '@/utils';
 
 // store
-import { TRootState, TRootActions, rootReducer } from '@/store/index';
+import { TRootState, TRootActions, rootReducer } from '@/store';
 
 // components for table page
 import * as Components from '@/components';
@@ -31,10 +32,34 @@ export class TablePage implements IPage {
    */
   private store!: TStore;
 
+  /**
+   *
+   * @param params
+   */
+  private unsubscribeFromStorage!: IUnsubscribe;
+
   constructor(private params: IPageParams) {}
 
   private async init(): Promise<void> {
     this.store = createStore<TRootState, TRootActions>(rootReducer);
+
+    let prevState: TRootState = this.store.getState();
+
+    this.unsubscribeFromStorage = this.store.subscribe((state) => {
+      const stateKeys = Object.keys(state) as Array<keyof TRootState>;
+
+      stateKeys.forEach((key) => {
+        if (!isEqual(prevState[key], state[key])) {
+          this.classInstances.forEach((component) => {
+            if (component.subscribeToState.includes(key)) {
+              component.storeChanged(state);
+            }
+          });
+        }
+      });
+
+      prevState = this.store.getState();
+    });
   }
 
   public async toHtml(): Promise<HTMLElement> {

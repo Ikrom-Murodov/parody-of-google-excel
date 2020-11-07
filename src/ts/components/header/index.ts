@@ -1,4 +1,5 @@
 import { ExcelComponent } from '@/core/ExcelComponent';
+import { TRootState } from '@/store';
 
 import {
   IComponent,
@@ -16,11 +17,14 @@ export class Header extends ExcelComponent implements IComponent {
   constructor({ componentParams, parentData }: IComponentSettings) {
     super({
       eventNames: [],
+      subscribeToState: [],
       ...parentData,
     });
 
     this.componentParams = componentParams;
   }
+
+  public storeChanged(state: TRootState) {}
 
   public toHtml(): HTMLElement {
     const $wrapper: IDomHelper = $.create('div', 'excel-header__container');

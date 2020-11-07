@@ -3,6 +3,7 @@ import { ExcelComponent } from '@/core/ExcelComponent';
 import { IComponent, IComponentSettings, ICellId } from '@/core/interface';
 import { TableSelectCell } from './table.select.cell';
 import { componentTemplate } from './table.component.template';
+import { TRootState } from '@/store';
 
 import { getCellId, getCellIds, nextSelector } from './utils';
 import resizeTable from './resize.table';
@@ -17,6 +18,7 @@ export class Table extends ExcelComponent implements IComponent {
   constructor({ componentParams, parentData }: IComponentSettings) {
     super({
       eventNames: ['mousedown', 'keydown', 'input'],
+      subscribeToState: [],
       ...parentData,
     });
 
@@ -24,6 +26,8 @@ export class Table extends ExcelComponent implements IComponent {
   }
 
   static className = 'excel-table';
+
+  public storeChanged(state: TRootState) {}
 
   public toHtml(): HTMLElement {
     return componentTemplate(1000);

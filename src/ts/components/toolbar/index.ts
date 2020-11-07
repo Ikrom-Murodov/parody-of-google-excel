@@ -1,7 +1,7 @@
 import { $, IDomHelper } from 'helper-for-dom';
 
 import { ExcelComponent } from '@/core/ExcelComponent';
-
+import { TRootState } from '@/store';
 import {
   IComponent,
   IComponentParams,
@@ -18,11 +18,14 @@ export class Toolbar extends ExcelComponent implements IComponent {
   constructor({ componentParams, parentData }: IComponentSettings) {
     super({
       eventNames: ['click'],
+      subscribeToState: [],
       ...parentData,
     });
 
     this.ExcelComponent = componentParams;
   }
+
+  public storeChanged(state: TRootState) {}
 
   public toHtml(): HTMLElement {
     return componentTemplate();

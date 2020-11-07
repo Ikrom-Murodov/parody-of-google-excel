@@ -10,11 +10,15 @@ export class ExcelComponent extends DomListener {
    */
   private subscribers: IEmitterSubscriber[] = [];
 
+  readonly subscribeToState: Array<keyof TRootState>;
+
   constructor(private excelParams: IExcelComponentParams) {
     super({
       element: excelParams.element,
       eventNames: excelParams.eventNames,
     });
+
+    this.subscribeToState = excelParams.subscribeToState;
   }
 
   /**
