@@ -1,4 +1,4 @@
-import { $, IDomHelper } from 'helper-for-dom';
+import { $, IDomHelper, TDomHelperCssParams } from 'helper-for-dom';
 import { ExcelComponent } from '@/core/ExcelComponent';
 import { IComponent, IComponentSettings, ICellId } from '@/core/interface';
 import { TableSelectCell } from './table.select.cell';
@@ -106,6 +106,10 @@ export class Table extends ExcelComponent implements IComponent {
 
     this.$on('formula:done', (): void => {
       this.selectCell.getCurrentElement.focus();
+    });
+
+    this.$on('toolbar:applyStyle', (styles: unknown) => {
+      this.selectCell.addStyles(styles as TDomHelperCssParams);
     });
   }
 

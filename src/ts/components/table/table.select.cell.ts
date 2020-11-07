@@ -1,4 +1,6 @@
-import { IDomHelper } from 'helper-for-dom';
+import { IDomHelper, TDomHelperCssParams } from 'helper-for-dom';
+import { defaultCurrentStylesCell } from '@/core/defaultValue';
+import { ICellStyles } from '@/core/interface';
 
 /**
  * Interface for parameter of the TableSelectCell class.
@@ -62,6 +64,22 @@ export class TableSelectCell {
     });
 
     this.currentGroupElement = [];
+  }
+
+  /**
+   * This function adds styles to elements and returns default styles.
+   * @param {TDomHelperCssParams} styles - Styles to add to elements.
+   * @public - This field is available to all instances of the TableSelectCell class.
+   * @return {IDomHelper} - Returns default styles.
+   */
+  public addStyles(styles: TDomHelperCssParams): { [key: string]: unknown } {
+    this.currentGroupElement.forEach(($el) => {
+      $el.css(styles);
+    });
+
+    return this.currentGroupElement[0].getStyles(
+      Object.keys(defaultCurrentStylesCell) as Array<keyof ICellStyles>,
+    );
   }
 
   /**

@@ -53,3 +53,13 @@ export interface IComponentSettings {
     $root: IDomHelper;
   };
 }
+
+/**
+ * @interface
+ */
+export interface ICellStyles {
+  fontStyle: string;
+  fontWeight: string;
+  textAlign: string;
+  textDecoration: string;
+}
