@@ -1,13 +1,17 @@
-import { CHANGE_TEXT_CURRENT_CELL, ITable, TTableActions } from './types';
+import {
+  CHANGE_TEXT_CURRENT_CELL,
+  ITablePage,
+  TTablePageActions,
+} from './types';
 
-const initialState: ITable = {
+const initialState: ITablePage = {
   currentCellTExt: '',
 };
 
-export default function tableReducer(
+export default function rootReducer(
   state = initialState,
-  action: TTableActions,
-): ITable {
+  action: TTablePageActions,
+): ITablePage {
   switch (action.type) {
     case CHANGE_TEXT_CURRENT_CELL:
       return { ...state, currentCellTExt: action.data };

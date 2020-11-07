@@ -1,6 +1,6 @@
 export const CHANGE_TEXT_CURRENT_CELL = 'CHANGE_TEXT_CURRENT_CELL';
 
-export interface ITable {
+export interface ITablePage {
   currentCellTExt: string;
 }
 
@@ -10,4 +10,4 @@ export interface IActionChangeTextCurrentCell {
   data: string;
 }
 
-export type TTableActions = IActionChangeTextCurrentCell;
+export type TTablePageActions = IActionChangeTextCurrentCell;

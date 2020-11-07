@@ -1,15 +1,8 @@
-import { combineReducers } from 'parody-of-redux';
-import * as table from './table';
-
-const rootReducer = combineReducers({
-  table: table.tableReducer,
-});
-
-const actions = {
-  ...table.tableActions,
-};
+import * as types from './types';
+import rootReducer from './reducer';
+import * as actions from './actions';
 
 type TRootState = ReturnType<typeof rootReducer>;
-type TRootActions = table.tableTypes.TTableActions;
+type TRootActions = types.TTablePageActions;
 
-export { rootReducer, actions, TRootState, TRootActions };
+export { rootReducer, TRootState, TRootActions, actions };
