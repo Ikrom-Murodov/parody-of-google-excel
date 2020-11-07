@@ -1,11 +1,6 @@
 import { $, IDomHelper } from 'helper-for-dom';
 import { ExcelComponent } from '@/core/ExcelComponent';
-import {
-  IComponent,
-  IComponentSettings,
-  IComponentParams,
-  ICellId,
-} from '@/core/interface';
+import { IComponent, IComponentSettings, ICellId } from '@/core/interface';
 import { TableSelectCell } from './table.select.cell';
 import { componentTemplate } from './table.component.template';
 
@@ -13,11 +8,11 @@ import { getCellId, getCellIds, nextSelector } from './utils';
 import resizeTable from './resize.table';
 
 export class Table extends ExcelComponent implements IComponent {
-  private componentParams: IComponentParams;
-
   private selectCell: TableSelectCell = new TableSelectCell({
     activeClass: 'excel-table-rows__cell_selected',
   });
+
+  readonly $root: IDomHelper;
 
   constructor({ componentParams, parentData }: IComponentSettings) {
     super({
@@ -25,7 +20,7 @@ export class Table extends ExcelComponent implements IComponent {
       ...parentData,
     });
 
-    this.componentParams = componentParams;
+    this.$root = componentParams.$root;
   }
 
   static className = 'excel-table';
@@ -53,7 +48,7 @@ export class Table extends ExcelComponent implements IComponent {
           const $cells = cellIds.map(
             (id: string): IDomHelper => {
               const selector: string = `[data-cell-id="${id}"]`;
-              return this.componentParams.$root.find(selector) as IDomHelper;
+              return this.$root.find(selector) as IDomHelper;
             },
           );
 
@@ -64,7 +59,7 @@ export class Table extends ExcelComponent implements IComponent {
       }
 
       if ($target.dataset().resizeType) {
-        resizeTable($target, this.componentParams.$root);
+        resizeTable($target, this.$root);
       }
     }
   };
@@ -86,9 +81,7 @@ export class Table extends ExcelComponent implements IComponent {
 
       const cellId: ICellId = getCellId(this.selectCell.getCurrentElement);
 
-      const $next = this.componentParams.$root.find(
-        nextSelector(key, cellId),
-      ) as IDomHelper;
+      const $next = this.$root.find(nextSelector(key, cellId)) as IDomHelper;
 
       this.addFocusToItem($next);
     }
@@ -96,6 +89,8 @@ export class Table extends ExcelComponent implements IComponent {
 
   public init(): void {
     super.init();
+
+    this.addFocusToItem(this.$root.find('[data-cell-id="0:0"]') as IDomHelper);
   }
 
   public destroy(): void {}
