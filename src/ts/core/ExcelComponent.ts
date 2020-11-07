@@ -41,6 +41,16 @@ export class ExcelComponent extends DomListener {
   }
 
   /**
+   * This method calls the toHtml method on the component again.
+   * @public - This method is available to all instances of the  EventEmitter class.
+   * @return { Promise<void> }
+   */
+  public async $repeatRenderComponent(): Promise<void> {
+    const content: HTMLElement = await this.toHtml();
+    this.excelParams.$root.html(content);
+  }
+
+  /**
    * To navigate to a different URL, use this method.
    * @param{ string } path - Url address to go to a new page.
    * @public - This method is available to all instances of the ExcelComponent class.

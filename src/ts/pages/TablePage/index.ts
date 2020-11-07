@@ -43,6 +43,7 @@ export class TablePage implements IPage {
           element: $wrapperEl.$el,
           emitter: this.emitter,
           router: this.params.router,
+          $root: $wrapperEl,
         },
       });
 
