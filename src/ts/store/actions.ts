@@ -8,6 +8,8 @@ import {
   CHANGE_TEXT_CURRENT_CELL,
   RESIZE_COLUMN,
   RESIZE_ROW,
+  UPDATE_DATE,
+  IActionUpdateDate,
   IActionChangeCellsText,
   IActionChangeCellStyles,
   IActionChangeStylesCurrentCell,
@@ -18,6 +20,12 @@ import {
   IColumnState,
   IRowState,
 } from './types';
+
+export function updateDate(): IActionUpdateDate {
+  return {
+    type: UPDATE_DATE,
+  };
+}
 
 export function resizeRow(data: IRowState): IActionResizeRow {
   return {

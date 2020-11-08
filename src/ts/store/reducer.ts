@@ -7,6 +7,7 @@ import {
   CHANGE_CELLS_TEXT,
   CHANGE_STYLES_CURRENT_CELL,
   CHANGE_TEXT_CURRENT_CELL,
+  UPDATE_DATE,
   RESIZE_COLUMN,
   RESIZE_ROW,
   CHANGE_TABLE_NAME,
@@ -22,6 +23,7 @@ export const initialState: ITablePage = {
   columnsState: [],
   rowsState: [],
   tableName: 'New table.',
+  openedDate: new Date().toJSON(),
 };
 
 export default function rootReducer(
@@ -29,6 +31,9 @@ export default function rootReducer(
   action: TTablePageActions,
 ): ITablePage {
   switch (action.type) {
+    case UPDATE_DATE:
+      return { ...state, openedDate: new Date().toJSON() };
+
     case CHANGE_TABLE_NAME:
       return { ...state, tableName: action.data };
 

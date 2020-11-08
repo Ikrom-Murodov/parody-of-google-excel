@@ -6,6 +6,7 @@ export const CHANGE_CELL_STYLES = 'CHANGE_CELL_STYLES';
 export const CHANGE_CELLS_TEXT = 'CHANGE_CELLS_TEXT';
 export const CHANGE_TABLE_NAME = 'CHANGE_TABLE_NAME';
 export const RESIZE_COLUMN = 'RESIZE_COLUMN';
+export const UPDATE_DATE = 'UPDATE_DATE';
 export const RESIZE_ROW = 'RESIZE_ROW';
 
 export interface ITablePage {
@@ -16,6 +17,7 @@ export interface ITablePage {
   columnsState: IColumnState[];
   rowsState: IRowState[];
   tableName: string;
+  openedDate: string;
 }
 
 export interface IColumnState {
@@ -29,6 +31,10 @@ export interface IRowState {
 }
 
 // Actions
+
+export interface IActionUpdateDate {
+  type: typeof UPDATE_DATE;
+}
 
 export interface IActionChangeTableName {
   type: typeof CHANGE_TABLE_NAME;
@@ -74,4 +80,5 @@ export type TTablePageActions =
   | IActionChangeCellsText
   | IActionResizeColumn
   | IActionResizeRow
-  | IActionChangeTableName;
+  | IActionChangeTableName
+  | IActionUpdateDate;
