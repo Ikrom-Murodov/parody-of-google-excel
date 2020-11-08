@@ -72,22 +72,36 @@ export class TableSelectCell {
    * @public - This field is available to all instances of the TableSelectCell class.
    * @return {IDomHelper} - Returns default styles.
    */
-  public addStyles(styles: TDomHelperCssParams): { [key: string]: unknown } {
+  public addStyles(styles: TDomHelperCssParams): ICellStyles {
     this.currentGroupElement.forEach(($el) => {
       $el.css(styles);
     });
 
     return this.currentGroupElement[0].getStyles(
       Object.keys(defaultCurrentStylesCell) as Array<keyof ICellStyles>,
-    );
+      // eslint-disable-next-line
+    ) as any;
   }
 
   /**
    * this function returns the currently selected html element.
    * @public - This field is available to all instances of the TableSelectCell class.
-   * @return {IDomHelper} -
+   * @return {IDomHelper} - returns the currently selected html element.
    */
   public get getCurrentElement(): IDomHelper {
     return this.currentElement;
+  }
+
+  /**
+   *  This functions returns the ids of the selected cells.
+   *  @public - This field is available to all instances of the TableSelectCell class.
+   *  @return {string[]} - Returns the ids of the selected cells.
+   */
+  public get getIdsSelectedCells(): string[] {
+    const ids: string[] = this.currentGroupElement.map(
+      ($el) => $el.dataset()?.cellId,
+    ) as string[];
+
+    return ids;
   }
 }
