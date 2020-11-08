@@ -21,7 +21,7 @@ export class Toolbar extends ExcelComponent implements IComponent {
   constructor({ componentParams, parentData }: IComponentSettings) {
     super({
       eventNames: ['click'],
-      subscribeToChangeStorage: [],
+      subscribeToChangeStorage: ['currentCellStyles'],
       ...parentData,
     });
 
@@ -35,7 +35,9 @@ export class Toolbar extends ExcelComponent implements IComponent {
    * @public - This method is available to all instances of the Toolbar class.
    *   But this method is not intended to be called directly.
    */
-  public storeChanged(state: TRootState) {}
+  public storeChanged(state: TRootState) {
+    this.$repeatRenderComponent();
+  }
 
   /**
    * This method will be called to get the component template.
@@ -43,7 +45,7 @@ export class Toolbar extends ExcelComponent implements IComponent {
    * @return {HTMLElement} - Returns the page template.
    */
   public toHtml(): HTMLElement {
-    return componentTemplate();
+    return componentTemplate(this.$getState());
   }
 
   /**

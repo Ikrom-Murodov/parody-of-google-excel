@@ -1,4 +1,5 @@
 import { $ } from 'helper-for-dom';
+import { TRootState } from '@/store';
 
 /**
  * This interface describes the state of the button.
@@ -14,7 +15,6 @@ interface IButtonState {
 
 /**
  *  This function returns the button of the toolbar component.
- *
  *  @param {IButtonState} buttonState - Button state
  *  @return {string} - Html template
  */
@@ -32,54 +32,59 @@ function buttonsTemplate(buttonState: IButtonState): string {
 /**
  * This function creates an html element and adds all the buttons of the toolbar
  *   component to it and returns this html element.
- *
+ * @param {TRootState} state - state app
  * @return {HTMLElement}
  */
-export function componentTemplate(): HTMLElement {
+export function componentTemplate(state: TRootState): HTMLElement {
   const $wrapper = $.create('div', 'excel-toolbar__container');
   const $childWrapper = $.create('div', 'excel-toolbar__wrapper-buttons');
 
   const buttons: IButtonState[] = [
     {
       iconName: 'format_align_left',
-      active: false,
+      active: state.currentCellStyles.textAlign === 'left',
       value: {
         textAlign: 'left',
       },
     },
     {
       iconName: 'format_align_center',
-      active: false,
+      active: state.currentCellStyles.textAlign === 'center',
       value: {
         textAlign: 'center',
       },
     },
     {
       iconName: 'format_align_right',
-      active: false,
+      active: state.currentCellStyles.textAlign === 'right',
       value: {
         textAlign: 'right',
       },
     },
     {
       iconName: 'format_bold',
-      active: false,
+      active: state.currentCellStyles.fontWeight === 'bold',
       value: {
-        fontWeight: 'normal',
+        fontWeight:
+          state.currentCellStyles.fontWeight === 'bold' ? 'normal' : 'bold',
       },
     },
     {
       iconName: 'format_italic',
-      active: false,
+      active: state.currentCellStyles.fontStyle === 'italic',
       value: {
-        fontStyle: 'normal',
+        fontStyle:
+          state.currentCellStyles.fontStyle === 'italic' ? 'normal' : 'italic',
       },
     },
     {
       iconName: 'format_underline',
-      active: false,
+      active: state.currentCellStyles.textDecoration === 'underline',
       value: {
-        textDecoration: 'none',
+        textDecoration:
+          state.currentCellStyles.textDecoration === 'underline'
+            ? 'none'
+            : 'underline',
       },
     },
   ];
