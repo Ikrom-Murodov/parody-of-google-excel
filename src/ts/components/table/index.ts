@@ -1,10 +1,16 @@
 import { $, IDomHelper, TDomHelperCssParams } from 'helper-for-dom';
-import { IComponent, IComponentSettings, ICellId } from '@/core/interface';
+import {
+  IComponent,
+  IComponentSettings,
+  ICellId,
+  ICellStyles,
+} from '@/core/interface';
+import { defaultCurrentStylesCell } from '@/core/defaultValue';
 import { ExcelComponent } from '@/core/ExcelComponent';
-import { TRootState } from '@/store';
+import { actions, TRootState } from '@/store';
 
-import { getCellId, getCellIds, nextSelector } from './utils';
 import { componentTemplate } from './table.component.template';
+import { getCellId, getCellIds, nextSelector } from './utils';
 import { TableSelectCell } from './table.select.cell';
 import resizeTable from './resize.table';
 
@@ -55,7 +61,15 @@ export class Table extends ExcelComponent implements IComponent {
 
   public addFocusToItem($element: IDomHelper): void {
     this.selectCell.select($element);
-    this.$emit('table:input', $element.getText());
+
+    this.$dispatch(actions.changeTextCurrentCell($element.getText()));
+
+    // eslint-disable-next-line
+    const cellStyles: any = $element.getStyles(
+      Object.keys(defaultCurrentStylesCell) as Array<keyof ICellStyles>,
+    );
+
+    this.$dispatch(actions.changeStylesCurrentCell(cellStyles));
   }
 
   /**
@@ -68,7 +82,13 @@ export class Table extends ExcelComponent implements IComponent {
    */
   public onInput = (event: MouseEvent) => {
     const $target: IDomHelper = $(event.target as HTMLElement);
-    this.$emit('table:input', $target.getText());
+
+    this.$dispatch(
+      actions.changeCellsText({
+        text: $target.getText(),
+        id: $target.dataset().cellId as string,
+      }),
+    );
   };
 
   /**
@@ -153,7 +173,15 @@ export class Table extends ExcelComponent implements IComponent {
 
     this.$on('formula:input', (text: unknown): void => {
       if (typeof text === 'string') {
-        this.selectCell.getCurrentElement.updateText(text);
+        const $element: IDomHelper = this.selectCell.getCurrentElement;
+        $element.updateText(text);
+
+        this.$dispatch(
+          actions.changeCellsText({
+            text,
+            id: $element.dataset().cellId as string,
+          }),
+        );
       }
     });
 
@@ -161,8 +189,18 @@ export class Table extends ExcelComponent implements IComponent {
       this.selectCell.getCurrentElement.focus();
     });
 
-    this.$on('toolbar:applyStyle', (styles: unknown) => {
-      this.selectCell.addStyles(styles as TDomHelperCssParams);
+    this.$on('toolbar:applyStyle', (style: unknown) => {
+      const styles: ICellStyles = this.selectCell.addStyles(
+        style as TDomHelperCssParams,
+      );
+      const ids: string[] = this.selectCell.getIdsSelectedCells;
+
+      this.$dispatch(
+        actions.changeCellStyles({
+          styles,
+          ids,
+        }),
+      );
     });
   }
 

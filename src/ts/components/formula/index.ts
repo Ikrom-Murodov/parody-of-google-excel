@@ -1,6 +1,6 @@
 import { ExcelComponent } from '@/core/ExcelComponent';
 import { IComponent, IComponentSettings } from '@/core/interface';
-import { TRootState, actions } from '@/store';
+import { TRootState } from '@/store';
 import { $, IDomHelper } from 'helper-for-dom';
 
 export class Formula extends ExcelComponent implements IComponent {
@@ -21,7 +21,7 @@ export class Formula extends ExcelComponent implements IComponent {
   constructor({ componentParams, parentData }: IComponentSettings) {
     super({
       eventNames: ['input', 'keydown'],
-      subscribeToChangeStorage: [],
+      subscribeToChangeStorage: ['currentCellText'],
       ...parentData,
     });
 
@@ -35,7 +35,9 @@ export class Formula extends ExcelComponent implements IComponent {
    * @public - This method is available to all instances of the Formula class.
    *   But this method is not intended to be called directly.
    */
-  public storeChanged(state: TRootState) {}
+  public storeChanged(state: TRootState) {
+    this.$formulaInput.updateText(state.currentCellText);
+  }
 
   /**
    * This method will be called when a input event occurs on the component
@@ -47,7 +49,6 @@ export class Formula extends ExcelComponent implements IComponent {
    */
   public onInput = (event: InputEvent): void => {
     const $target: IDomHelper = $(event.target as HTMLElement);
-
     this.$emit('formula:input', $target.getText());
   };
 
@@ -66,7 +67,6 @@ export class Formula extends ExcelComponent implements IComponent {
       event.preventDefault();
 
       this.$emit('formula:done');
-      this.$dispatch(actions.changeTextCurrentCell(event.key));
     }
   };
 
@@ -97,11 +97,11 @@ export class Formula extends ExcelComponent implements IComponent {
       '[data-type="formula-input"]',
     ) as IDomHelper;
 
-    this.$on('table:input', (text: unknown): void => {
-      if (typeof text === 'string') {
-        this.$formulaInput.updateText(text);
-      }
-    });
+    // this.$on('table:input', (text: unknown): void => {
+    //   if (typeof text === 'string') {
+    //     this.$formulaInput.updateText(text);
+    //   }
+    // });
   }
 
   /**

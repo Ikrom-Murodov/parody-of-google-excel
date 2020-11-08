@@ -2,11 +2,11 @@ import { EventEmitter, IEventEmitter } from 'observer-pattern-js';
 import { createStore, IUnsubscribe } from 'parody-of-redux';
 import { IPage, IPageParams } from 'router-for-dom';
 import { $, IDomHelper } from 'helper-for-dom';
-
-import { TRootState, TRootActions, rootReducer } from '@/store';
+// eslint-disable-next-line
+import { TRootState, TRootActions, rootReducer, initialState } from '@/store';
 import { IComponent, TStore } from '@/core/interface';
 import * as Components from '@/components';
-import { isEqual } from '@/utils';
+import { isEqual, storage } from '@/utils';
 
 const arrayOfComponents = Object.values(Components);
 
@@ -44,11 +44,18 @@ export class TablePage implements IPage {
    * @return { Promise<void> }
    */
   private async init(): Promise<void> {
-    this.store = createStore<TRootState, TRootActions>(rootReducer);
+    const localStorageKey: string = `table:${this.params.stateHistory.id}`;
+    const initState = (await storage.getItem(localStorageKey)) || initialState;
+
+    this.store = createStore<TRootState, TRootActions>(
+      rootReducer,
+      initState as TRootState,
+    );
 
     let prevState: TRootState = this.store.getState();
 
     this.unsubscribeFromStorage = this.store.subscribe((state) => {
+      storage.setItem(localStorageKey, JSON.stringify(state));
       const stateKeys = Object.keys(state) as Array<keyof TRootState>;
 
       stateKeys.forEach((key) => {

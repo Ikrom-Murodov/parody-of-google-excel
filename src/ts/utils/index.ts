@@ -3,7 +3,7 @@ export const storage = {
    * Get data from server.
    * @param {string} key - The key by which the data will be searched.
    */
-  async getItem(key: string): Promise<unknown> {
+  async getItem<S>(key: string): Promise<S | null> {
     const response: string | null = localStorage.getItem(key);
 
     if (response) return JSON.parse(response);
