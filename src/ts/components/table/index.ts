@@ -84,7 +84,7 @@ export class Table extends ExcelComponent implements IComponent {
     const $target: IDomHelper = $(event.target as HTMLElement);
 
     this.$dispatch(
-      actions.changeCellTexts({
+      actions.changeCellsText({
         text: $target.getText(),
         id: $target.dataset().cellId as string,
       }),
@@ -177,7 +177,7 @@ export class Table extends ExcelComponent implements IComponent {
         $element.updateText(text);
 
         this.$dispatch(
-          actions.changeCellTexts({
+          actions.changeCellsText({
             text,
             id: $element.dataset().cellId as string,
           }),

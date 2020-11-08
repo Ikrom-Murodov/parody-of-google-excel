@@ -2,22 +2,32 @@ import { ICellStyles } from '@/core/interface';
 
 import {
   CHANGE_CELL_STYLES,
-  CHANGE_CELL_TEXTS,
+  CHANGE_CELLS_TEXT,
   CHANGE_STYLES_CURRENT_CELL,
   CHANGE_TEXT_CURRENT_CELL,
+  RESIZE_COLUMN,
+  IActionChangeCellsText,
   IActionChangeCellStyles,
-  IActionChangeCellTexts,
   IActionChangeStylesCurrentCell,
   IActionChangeTextCurrentCell,
+  IActionResizeColumn,
+  IColumnState,
 } from './types';
 
-export function changeCellTexts(data: {
-  id: string;
-  text: string;
-}): IActionChangeCellTexts {
+export function resizeColumn(data: IColumnState): IActionResizeColumn {
   return {
     data,
-    type: CHANGE_CELL_TEXTS,
+    type: RESIZE_COLUMN,
+  };
+}
+
+export function changeCellsText(data: {
+  id: string;
+  text: string;
+}): IActionChangeCellsText {
+  return {
+    data,
+    type: CHANGE_CELLS_TEXT,
   };
 }
 

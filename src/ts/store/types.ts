@@ -3,16 +3,28 @@ import { ICellStyles } from '@/core/interface';
 export const CHANGE_TEXT_CURRENT_CELL = 'CHANGE_TEXT_CURRENT_CELL';
 export const CHANGE_STYLES_CURRENT_CELL = 'CHANGE_STYLES_CURRENT_CELL';
 export const CHANGE_CELL_STYLES = 'CHANGE_CELL_STYLES';
-export const CHANGE_CELL_TEXTS = 'CHANGE_CELL_TEXTS';
+export const CHANGE_CELLS_TEXT = 'CHANGE_CELLS_TEXT';
+export const RESIZE_COLUMN = 'RESIZE_COLUMN';
 
 export interface ITablePage {
   currentCellText: string;
   currentCellStyles: ICellStyles;
   cellStyles: { [key: string]: ICellStyles };
-  cellText: { id: string; text: string }[];
+  cellsText: { id: string; text: string }[];
+  columnsState: IColumnState[];
+}
+
+export interface IColumnState {
+  width: number;
+  id: number;
 }
 
 // Actions
+
+export interface IActionResizeColumn {
+  type: typeof RESIZE_COLUMN;
+  data: IColumnState;
+}
 
 export interface IActionChangeTextCurrentCell {
   type: typeof CHANGE_TEXT_CURRENT_CELL;
@@ -29,8 +41,8 @@ export interface IActionChangeCellStyles {
   data: { ids: string[]; styles: ICellStyles };
 }
 
-export interface IActionChangeCellTexts {
-  type: typeof CHANGE_CELL_TEXTS;
+export interface IActionChangeCellsText {
+  type: typeof CHANGE_CELLS_TEXT;
   data: { id: string; text: string };
 }
 
@@ -40,4 +52,5 @@ export type TTablePageActions =
   | IActionChangeTextCurrentCell
   | IActionChangeStylesCurrentCell
   | IActionChangeCellStyles
-  | IActionChangeCellTexts;
+  | IActionChangeCellsText
+  | IActionResizeColumn;
