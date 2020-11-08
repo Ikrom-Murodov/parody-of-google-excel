@@ -6,3 +6,4 @@ type TRootState = ReturnType<typeof rootReducer>;
 type TRootActions = types.TTablePageActions;
 
 export { rootReducer, TRootState, TRootActions, actions };
+export { initialState } from './reducer';

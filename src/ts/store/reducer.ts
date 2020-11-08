@@ -11,7 +11,7 @@ import {
   TTablePageActions,
 } from './types';
 
-const initialState: ITablePage = {
+export const initialState: ITablePage = {
   currentCellText: '',
   cellStyles: {},
   currentCellStyles: defaultCurrentStylesCell,
