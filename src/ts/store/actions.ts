@@ -6,13 +6,23 @@ import {
   CHANGE_STYLES_CURRENT_CELL,
   CHANGE_TEXT_CURRENT_CELL,
   RESIZE_COLUMN,
+  RESIZE_ROW,
   IActionChangeCellsText,
   IActionChangeCellStyles,
   IActionChangeStylesCurrentCell,
   IActionChangeTextCurrentCell,
   IActionResizeColumn,
+  IActionResizeRow,
   IColumnState,
+  IRowState,
 } from './types';
+
+export function resizeRow(data: IRowState): IActionResizeRow {
+  return {
+    data,
+    type: RESIZE_ROW,
+  };
+}
 
 export function resizeColumn(data: IColumnState): IActionResizeColumn {
   return {

@@ -5,6 +5,7 @@ export const CHANGE_STYLES_CURRENT_CELL = 'CHANGE_STYLES_CURRENT_CELL';
 export const CHANGE_CELL_STYLES = 'CHANGE_CELL_STYLES';
 export const CHANGE_CELLS_TEXT = 'CHANGE_CELLS_TEXT';
 export const RESIZE_COLUMN = 'RESIZE_COLUMN';
+export const RESIZE_ROW = 'RESIZE_ROW';
 
 export interface ITablePage {
   currentCellText: string;
@@ -12,6 +13,7 @@ export interface ITablePage {
   cellStyles: { [key: string]: ICellStyles };
   cellsText: { id: string; text: string }[];
   columnsState: IColumnState[];
+  rowsState: IRowState[];
 }
 
 export interface IColumnState {
@@ -19,7 +21,17 @@ export interface IColumnState {
   id: number;
 }
 
+export interface IRowState {
+  height: number;
+  id: number;
+}
+
 // Actions
+
+export interface IActionResizeRow {
+  type: typeof RESIZE_ROW;
+  data: IRowState;
+}
 
 export interface IActionResizeColumn {
   type: typeof RESIZE_COLUMN;
@@ -53,4 +65,5 @@ export type TTablePageActions =
   | IActionChangeStylesCurrentCell
   | IActionChangeCellStyles
   | IActionChangeCellsText
-  | IActionResizeColumn;
+  | IActionResizeColumn
+  | IActionResizeRow;

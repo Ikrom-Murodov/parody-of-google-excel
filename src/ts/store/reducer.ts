@@ -7,8 +7,9 @@ import {
   CHANGE_CELLS_TEXT,
   CHANGE_STYLES_CURRENT_CELL,
   CHANGE_TEXT_CURRENT_CELL,
-  ITablePage,
   RESIZE_COLUMN,
+  RESIZE_ROW,
+  ITablePage,
   TTablePageActions,
 } from './types';
 
@@ -18,6 +19,7 @@ export const initialState: ITablePage = {
   currentCellStyles: defaultCurrentStylesCell,
   cellsText: [],
   columnsState: [],
+  rowsState: [],
 };
 
 export default function rootReducer(
@@ -35,15 +37,22 @@ export default function rootReducer(
 
     case RESIZE_COLUMN:
       const columnsState = { ...state.columnsState };
-
       const index = state.columnsState.findIndex(
         ({ id }) => id === action.data.id,
       );
-
       if (index > -1) columnsState[index] = action.data;
       else columnsState.push(action.data);
-
       return { ...state, columnsState };
+      break;
+
+    case RESIZE_ROW:
+      const rowsState = { ...state.rowsState };
+      const rowIndex = state.rowsState.findIndex(
+        ({ id }) => id === action.data.id,
+      );
+      if (rowIndex > -1) rowsState[rowIndex] = action.data;
+      else rowsState.push(action.data);
+      return { ...state, rowsState };
       break;
 
     case CHANGE_CELL_STYLES:
