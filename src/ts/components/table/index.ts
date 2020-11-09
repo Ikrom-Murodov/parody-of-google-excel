@@ -57,7 +57,7 @@ export class Table extends ExcelComponent implements IComponent {
    * @return {HTMLElement} - Returns the page template.
    */
   public toHtml(): HTMLElement {
-    return componentTemplate(1000);
+    return componentTemplate(1000, this.$getState());
   }
 
   public addFocusToItem($element: IDomHelper): void {
@@ -176,7 +176,9 @@ export class Table extends ExcelComponent implements IComponent {
   public init(): void {
     super.init();
 
-    this.addFocusToItem(this.$root.find('[data-cell-id="0:0"]') as IDomHelper);
+    const $cell = this.$root.find('[data-cell-id="0:0"]') as IDomHelper;
+    this.addFocusToItem($cell);
+    this.$emit('table:select', $cell.getText());
 
     this.$on('formula:input', (text: unknown): void => {
       if (typeof text === 'string') {

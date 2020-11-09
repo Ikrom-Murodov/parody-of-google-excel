@@ -65,7 +65,6 @@ export class Formula extends ExcelComponent implements IComponent {
 
     if (keys.includes(event.key)) {
       event.preventDefault();
-
       this.$emit('formula:done');
     }
   };
@@ -97,11 +96,9 @@ export class Formula extends ExcelComponent implements IComponent {
       '[data-type="formula-input"]',
     ) as IDomHelper;
 
-    // this.$on('table:input', (text: unknown): void => {
-    //   if (typeof text === 'string') {
-    //     this.$formulaInput.updateText(text);
-    //   }
-    // });
+    this.$on('table:select', (text) => {
+      if (typeof text === 'string') this.$formulaInput.updateText(text);
+    });
   }
 
   /**
