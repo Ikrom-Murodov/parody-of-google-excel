@@ -9,6 +9,7 @@ import { defaultCurrentStylesCell } from '@/core/defaultValue';
 import { IColumnState, IRowState } from '@/store/types';
 import { ExcelComponent } from '@/core/ExcelComponent';
 import { actions, TRootState } from '@/store';
+import { parse } from '@/utils';
 
 import { componentTemplate } from './table.component.template';
 import { getCellId, getCellIds, nextSelector } from './utils';
@@ -63,7 +64,9 @@ export class Table extends ExcelComponent implements IComponent {
   public addFocusToItem($element: IDomHelper): void {
     this.selectCell.select($element);
 
-    this.$dispatch(actions.changeTextCurrentCell($element.getText()));
+    this.$dispatch(
+      actions.changeTextCurrentCell($element.getAttr('data-value') || ''),
+    );
 
     // eslint-disable-next-line
     const cellStyles: any = $element.getStyles(
@@ -83,6 +86,7 @@ export class Table extends ExcelComponent implements IComponent {
    */
   public onInput = (event: MouseEvent) => {
     const $target: IDomHelper = $(event.target as HTMLElement);
+    $target.addAttr('data-value', $target.getText());
 
     this.$dispatch(
       actions.changeCellsText({
@@ -178,12 +182,17 @@ export class Table extends ExcelComponent implements IComponent {
 
     const $cell = this.$root.find('[data-cell-id="0:0"]') as IDomHelper;
     this.addFocusToItem($cell);
-    this.$emit('table:select', $cell.getText());
+
+    this.$emit('table:select', $cell.getAttr('data-value'));
 
     this.$on('formula:input', (text: unknown): void => {
       if (typeof text === 'string') {
-        const $element: IDomHelper = this.selectCell.getCurrentElement;
-        $element.updateText(text);
+        const $element: IDomHelper = this.selectCell.getCurrentElement.addAttr(
+          'data-value',
+          text,
+        );
+
+        $element.updateText(parse(text));
 
         this.$dispatch(
           actions.changeCellsText({
