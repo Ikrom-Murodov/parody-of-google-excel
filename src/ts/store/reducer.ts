@@ -11,6 +11,7 @@ import {
   RESIZE_COLUMN,
   RESIZE_ROW,
   CHANGE_TABLE_NAME,
+  CHANGE_PAGE_ID,
   ITablePage,
   TTablePageActions,
 } from './types';
@@ -24,6 +25,7 @@ export const initialState: ITablePage = {
   rowsState: [],
   tableName: 'New table.',
   openedDate: new Date().toJSON(),
+  pageId: 'some-id',
 };
 
 export default function rootReducer(
@@ -31,6 +33,9 @@ export default function rootReducer(
   action: TTablePageActions,
 ): ITablePage {
   switch (action.type) {
+    case CHANGE_PAGE_ID:
+      return { ...state, pageId: action.data };
+
     case UPDATE_DATE:
       return { ...state, openedDate: new Date().toJSON() };
 

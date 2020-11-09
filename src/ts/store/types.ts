@@ -5,6 +5,7 @@ export const CHANGE_STYLES_CURRENT_CELL = 'CHANGE_STYLES_CURRENT_CELL';
 export const CHANGE_CELL_STYLES = 'CHANGE_CELL_STYLES';
 export const CHANGE_CELLS_TEXT = 'CHANGE_CELLS_TEXT';
 export const CHANGE_TABLE_NAME = 'CHANGE_TABLE_NAME';
+export const CHANGE_PAGE_ID = 'CHANGE_PAGE_ID';
 export const RESIZE_COLUMN = 'RESIZE_COLUMN';
 export const UPDATE_DATE = 'UPDATE_DATE';
 export const RESIZE_ROW = 'RESIZE_ROW';
@@ -18,6 +19,7 @@ export interface ITablePage {
   rowsState: IRowState[];
   tableName: string;
   openedDate: string;
+  pageId: string;
 }
 
 export interface IColumnState {
@@ -51,6 +53,11 @@ export interface IActionResizeColumn {
   data: IColumnState;
 }
 
+export interface IActionChangePageId {
+  type: typeof CHANGE_PAGE_ID;
+  data: string;
+}
+
 export interface IActionChangeTextCurrentCell {
   type: typeof CHANGE_TEXT_CURRENT_CELL;
   data: string;
@@ -81,4 +88,5 @@ export type TTablePageActions =
   | IActionResizeColumn
   | IActionResizeRow
   | IActionChangeTableName
-  | IActionUpdateDate;
+  | IActionUpdateDate
+  | IActionChangePageId;
