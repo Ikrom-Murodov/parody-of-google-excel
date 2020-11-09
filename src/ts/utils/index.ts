@@ -100,3 +100,23 @@ export const uid = ((): ((length: number) => string) => {
     return id;
   };
 })();
+
+/**
+ *
+ * @param {string} value - Data that needs to be processed.
+ * @return {string} - The result of processing will return as a string.
+ * @example
+ *  parse('=10+10-5*5') // '-5'
+ */
+export function parse(value: string = ''): string {
+  if (value.startsWith('=')) {
+    try {
+      // eslint-disable-next-line
+      return eval(value.slice(1));
+    } catch (e) {
+      return value;
+    }
+  }
+
+  return value;
+}
