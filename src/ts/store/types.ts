@@ -25,11 +25,13 @@ export interface ITablePage {
 export interface IColumnState {
   width: number;
   id: number;
+  type: string;
 }
 
 export interface IRowState {
   height: number;
   id: number;
+  type: string;
 }
 
 // Actions

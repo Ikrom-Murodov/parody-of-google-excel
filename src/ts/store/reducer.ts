@@ -5,15 +5,17 @@ import { defaultCurrentStylesCell } from '@/core/defaultValue';
 import {
   CHANGE_CELL_STYLES,
   CHANGE_CELLS_TEXT,
+  CHANGE_PAGE_ID,
   CHANGE_STYLES_CURRENT_CELL,
+  CHANGE_TABLE_NAME,
   CHANGE_TEXT_CURRENT_CELL,
-  UPDATE_DATE,
+  IColumnState,
+  IRowState,
+  ITablePage,
   RESIZE_COLUMN,
   RESIZE_ROW,
-  CHANGE_TABLE_NAME,
-  CHANGE_PAGE_ID,
-  ITablePage,
   TTablePageActions,
+  UPDATE_DATE,
 } from './types';
 
 export const initialState: ITablePage = {
@@ -49,22 +51,17 @@ export default function rootReducer(
       return { ...state, currentCellStyles: action.data };
 
     case RESIZE_COLUMN:
-      const columnsState = [...state.columnsState];
-      const index = state.columnsState.findIndex(
-        ({ id }) => id === action.data.id,
-      );
-      if (index > -1) columnsState[index] = action.data;
-      else columnsState.push(action.data);
-      return { ...state, columnsState };
-
     case RESIZE_ROW:
-      const rowsState = [...state.rowsState];
-      const rowIndex = state.rowsState.findIndex(
-        ({ id }) => id === action.data.id,
+      const type = action.data.type === 'column' ? 'columnsState' : 'rowsState';
+      const table = [...state[type]];
+
+      const index = state[type].findIndex(
+        (item: IColumnState | IRowState) => item.id === action.data.id,
       );
-      if (rowIndex > -1) rowsState[rowIndex] = action.data;
-      else rowsState.push(action.data);
-      return { ...state, rowsState };
+      if (index > -1) table[index] = action.data;
+      else table.push(action.data);
+
+      return { ...state, [type]: table };
 
     case CHANGE_CELL_STYLES:
       const cellStyles = { ...state.cellStyles };
@@ -77,9 +74,10 @@ export default function rootReducer(
       const cellId = state.cellsText.findIndex(
         ({ id }) => id === action.data.id,
       );
-      if (cellId > -1) state.cellsText[cellId] = action.data;
-      else state.cellsText.push(action.data);
-      return { ...state, currentCellText: action.data.text };
+      const cellsText = [...state.cellsText];
+      if (cellId > -1) cellsText[cellId] = action.data;
+      else cellsText.push(action.data);
+      return { ...state, cellsText, currentCellText: action.data.text };
 
     default:
       return state;
