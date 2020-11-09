@@ -89,6 +89,7 @@ function rowTemplate(content: string, index?: number): string {
 
   $template.html(`
     <div class="excel-table-rows__info" 
+      style="height: ${height}px"
       data-row-id="${index || ''}" 
       data-min-height="28" 
     data-resize-element>
@@ -97,7 +98,7 @@ function rowTemplate(content: string, index?: number): string {
     </div>
     
     
-    <div style="height: ${height}px" class="excel-table-rows__data">
+    <div class="excel-table-rows__data">
       ${content}
     </div>
   `);
