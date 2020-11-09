@@ -128,4 +128,9 @@ export class TablePage implements IPage {
   public afterRenderElement(): void {
     this.classInstances.forEach((component) => component.init());
   }
+
+  public destroy(): void {
+    this.unsubscribeFromStorage();
+    this.classInstances.forEach((component) => component.destroy());
+  }
 }

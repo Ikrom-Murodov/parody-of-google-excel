@@ -32,7 +32,7 @@ function sectionTableTemplate(): string {
     <section class="section-table">
       <div class="section-table__wrapper-content">
         <div class="section-table__content main-page__container">
-          <div class="section-table-button">
+          <div data-type="create-new-table" class="section-table-button">
             <div class="section-table-button__wrapper-content">
               <span class="section-table-button__title">
                  Create a new table.
