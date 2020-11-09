@@ -1,3 +1,5 @@
+import { TRootState } from '@/store';
+
 export const storage = {
   /**
    * Get data from server.
@@ -33,6 +35,25 @@ export const storage = {
   async removeItem(key: string = ''): Promise<void> {
     localStorage.removeItem(key);
   },
+
+  /**
+   * Receives all data from the server.
+   * @return {Promise<TRootState[]>} - Returns data received from the server
+   *   asynchronously.
+   */
+  async getAllData(): Promise<TRootState[]> {
+    const data: TRootState[] = [];
+
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key: string | null = localStorage.key(i);
+      if (key?.includes('table')) {
+        const item = localStorage.getItem(key) as string;
+        data.push(JSON.parse(item));
+      }
+    }
+
+    return data;
+  },
 };
 
 /**
@@ -59,4 +80,43 @@ export function isEqual(a: unknown, b: unknown): boolean {
     return JSON.stringify(a) === JSON.stringify(b);
   }
   return a === b;
+}
+
+/**
+ * This function creates and returns a random identifier.
+ * @param {number} length - identifier length.
+ * @return {string} - returns a random identifier.
+ */
+export const uid = ((): ((length: number) => string) => {
+  const rand = (min: number, max: number): number =>
+    Math.floor(min + Math.random() * (max + 1 - min));
+
+  return (length: number = 10): string => {
+    let id: string = '';
+    for (let i = 0; i < length; i += 1) {
+      id += String.fromCharCode(rand(97, 122));
+    }
+
+    return id;
+  };
+})();
+
+/**
+ *
+ * @param {string} value - Data that needs to be processed.
+ * @return {string} - The result of processing will return as a string.
+ * @example
+ *  parse('=10+10-5*5') // '-5'
+ */
+export function parse(value: string = ''): string {
+  if (value.startsWith('=')) {
+    try {
+      // eslint-disable-next-line
+      return eval(value.slice(1));
+    } catch (e) {
+      return value;
+    }
+  }
+
+  return value;
 }

@@ -1,6 +1,7 @@
 import { $, TDomHelperCssParams } from 'helper-for-dom';
-import { TRootState } from '@/store';
 import { defaultCurrentStylesCell } from '@/core/defaultValue';
+import { TRootState } from '@/store';
+import { parse } from '@/utils';
 
 let appState: TRootState;
 
@@ -64,8 +65,10 @@ function cellTemplate(rowId: number) {
     $template.addAttr('data-column-id', String(columnId));
     $template.addAttr('data-cell-id', String(cellId));
     $template.addAttr('data-type', 'cell');
-    $template.updateText(text);
+    $template.addAttr('data-value', text);
+    $template.updateText(parse(text));
     $template.css(styles as TDomHelperCssParams);
+
     if (width) $template.css({ width: `${width}px` });
 
     return $template.$el.outerHTML;
