@@ -2,8 +2,13 @@ import { EventEmitter, IEventEmitter } from 'observer-pattern-js';
 import { createStore, IUnsubscribe } from 'parody-of-redux';
 import { IPage, IPageParams } from 'router-for-dom';
 import { $, IDomHelper } from 'helper-for-dom';
-// eslint-disable-next-line
-import { TRootState, TRootActions, rootReducer, initialState } from '@/store';
+import {
+  TRootState,
+  TRootActions,
+  rootReducer,
+  initialState,
+  actions,
+} from '@/store';
 import { IComponent, TStore } from '@/core/interface';
 import * as Components from '@/components';
 import { isEqual, storage } from '@/utils';
@@ -51,6 +56,8 @@ export class TablePage implements IPage {
       rootReducer,
       initState as TRootState,
     );
+
+    this.store.dispatch(actions.updateDate());
 
     let prevState: TRootState = this.store.getState();
 
