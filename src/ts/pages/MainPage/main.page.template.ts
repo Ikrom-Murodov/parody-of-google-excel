@@ -1,4 +1,7 @@
 import { $ } from 'helper-for-dom';
+import { TRootState } from '@/store';
+
+let appState: TRootState[];
 
 /**
  * This function returns the header of the main page.
@@ -45,6 +48,40 @@ function sectionTableTemplate(): string {
 }
 
 /**
+ * This function returns a list of created tables.
+ * @return {string} - Html template
+ */
+function test(): string {
+  // eslint-disable-next-line
+  const template: string[] = appState.map((state): string => {
+    return `
+       <li  data-router-link="/table/${state.pageId}" 
+        class="section-created-tables__item">
+       
+        <span data-router-link="/table/${state.pageId}" 
+          class="section-created-tables__item-name">
+          ${state.tableName}
+        </span>
+        
+         <div data-router-link="/table/${state.pageId}"  
+           class="section-created-tables__wrapper-item-opened">
+           
+          <span 
+            data-router-link="/table/${state.pageId}" 
+            class="section-created-tables__item-opened">
+              ${new Date(state.openedDate).toLocaleDateString()}
+              ${new Date(state.openedDate).toLocaleTimeString()}
+          </span>
+          
+        </div>
+      </li>
+    `;
+  });
+
+  return template.join(' ');
+}
+
+/**
  * This function returns the section of the main page where the created
  *   tables are located.
  * @return {string} - Html template.
@@ -60,12 +97,7 @@ function sectionCreatedTableTemplate(): string {
           </div>
           <div class="section-created-tables__wrapper-list">
             <ul class="section-created-tables__list">
-              <li class="section-created-tables__item">
-                <span class="section-created-tables__item-name">First table.</span>
-                 <div class="section-created-tables__wrapper-item-opened">
-                  <span class="section-created-tables__item-opened">11/2/2020 9:43:56.</span>
-                </div>
-              </li>
+              ${test()}
             </ul>
           </div>
         </div>
@@ -79,11 +111,13 @@ function sectionCreatedTableTemplate(): string {
 /**
  * This function creates an html element and adds all sections of the main page
  * to it and then returns the html element.
- *
+ * @param {TRootState[]} state - app state
  * @return {HTMLElement}
  */
-export function pageTemplate(): HTMLElement {
+export function pageTemplate(state: TRootState[]): HTMLElement {
   const $element = $.create('div', 'main-page');
+
+  appState = state;
 
   $element.html(`
     ${headerTemplate()}

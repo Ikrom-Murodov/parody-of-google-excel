@@ -1,4 +1,5 @@
 import { IPage, IPageParams } from 'router-for-dom';
+import { storage } from '@/utils';
 import { pageTemplate } from './main.page.template';
 
 export class MainPage implements IPage {
@@ -10,7 +11,9 @@ export class MainPage implements IPage {
    * @public - This method is available to all instances of the MainPage class.
    * @return {HTMLElement} - Returns the page template.
    */
-  public toHtml(): HTMLElement {
-    return pageTemplate();
+  public async toHtml(): Promise<HTMLElement> {
+    const data = await storage.getAllData();
+
+    return pageTemplate(data);
   }
 }
