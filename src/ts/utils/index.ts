@@ -1,3 +1,5 @@
+import { TRootState } from '@/store';
+
 export const storage = {
   /**
    * Get data from server.
@@ -32,6 +34,25 @@ export const storage = {
    */
   async removeItem(key: string = ''): Promise<void> {
     localStorage.removeItem(key);
+  },
+
+  /**
+   * Receives all data from the server.
+   * @return {Promise<TRootState[]>} - Returns data received from the server
+   *   asynchronously.
+   */
+  async getAllData(): Promise<TRootState[]> {
+    const data: TRootState[] = [];
+
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key: string | null = localStorage.key(i);
+      if (key?.includes('table')) {
+        const item = localStorage.getItem(key) as string;
+        data.push(JSON.parse(item));
+      }
+    }
+
+    return data;
   },
 };
 
