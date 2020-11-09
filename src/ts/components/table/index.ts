@@ -6,6 +6,7 @@ import {
   ICellStyles,
 } from '@/core/interface';
 import { defaultCurrentStylesCell } from '@/core/defaultValue';
+import { IColumnState, IRowState } from '@/store/types';
 import { ExcelComponent } from '@/core/ExcelComponent';
 import { actions, TRootState } from '@/store';
 
@@ -99,7 +100,7 @@ export class Table extends ExcelComponent implements IComponent {
    *   But this method is not intended to be called directly
    * @return { void } - This method returns nothing.
    */
-  public onMousedown = (event: MouseEvent): void => {
+  public onMousedown = async (event: MouseEvent): Promise<void> => {
     if (event.target instanceof HTMLElement) {
       const $target: IDomHelper = $(event.target);
       const { columnId, cellId, type } = $target.dataset();
@@ -125,7 +126,13 @@ export class Table extends ExcelComponent implements IComponent {
       }
 
       if ($target.dataset().resizeType) {
-        resizeTable($target, this.$root);
+        const data = await resizeTable($target, this.$root);
+
+        if (data.type === 'column') {
+          this.$dispatch(actions.resizeColumn({ ...(data as IColumnState) }));
+        } else {
+          this.$dispatch(actions.resizeRow({ ...(data as IRowState) }));
+        }
       }
     }
   };
