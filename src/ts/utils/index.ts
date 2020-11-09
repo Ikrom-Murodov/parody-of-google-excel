@@ -24,6 +24,15 @@ export const storage = {
 
     localStorage.setItem(key, value);
   },
+
+  /**
+   * Removes data from the server.
+   * @param {string} key - The key by which the data will be deleted from
+   *   the storage.
+   */
+  async removeItem(key: string = ''): Promise<void> {
+    localStorage.removeItem(key);
+  },
 };
 
 /**

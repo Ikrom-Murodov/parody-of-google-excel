@@ -44,7 +44,7 @@ export default function rootReducer(
       return { ...state, currentCellStyles: action.data };
 
     case RESIZE_COLUMN:
-      const columnsState = { ...state.columnsState };
+      const columnsState = [...state.columnsState];
       const index = state.columnsState.findIndex(
         ({ id }) => id === action.data.id,
       );
@@ -53,7 +53,7 @@ export default function rootReducer(
       return { ...state, columnsState };
 
     case RESIZE_ROW:
-      const rowsState = { ...state.rowsState };
+      const rowsState = [...state.rowsState];
       const rowIndex = state.rowsState.findIndex(
         ({ id }) => id === action.data.id,
       );
