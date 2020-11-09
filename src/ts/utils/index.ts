@@ -81,3 +81,22 @@ export function isEqual(a: unknown, b: unknown): boolean {
   }
   return a === b;
 }
+
+/**
+ * This function creates and returns a random identifier.
+ * @param {number} length - identifier length.
+ * @return {string} - returns a random identifier.
+ */
+export const uid = ((): ((length: number) => string) => {
+  const rand = (min: number, max: number): number =>
+    Math.floor(min + Math.random() * (max + 1 - min));
+
+  return (length: number = 10): string => {
+    let id: string = '';
+    for (let i = 0; i < length; i += 1) {
+      id += String.fromCharCode(rand(97, 122));
+    }
+
+    return id;
+  };
+})();
