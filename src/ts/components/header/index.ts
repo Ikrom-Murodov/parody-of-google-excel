@@ -6,6 +6,15 @@ import {
 } from '@/core/interface';
 import { ExcelComponent } from '@/core/ExcelComponent';
 import { actions, TRootState } from '@/store';
+import { storage } from '@/utils';
+
+function delay(time: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, time);
+  });
+}
 
 export class Header extends ExcelComponent implements IComponent {
   static className = 'excel-header';
@@ -18,13 +27,22 @@ export class Header extends ExcelComponent implements IComponent {
 
   constructor({ componentParams, parentData }: IComponentSettings) {
     super({
-      eventNames: ['input'],
+      eventNames: ['input', 'click'],
       subscribeToChangeStorage: [],
       ...parentData,
     });
 
     this.componentParams = componentParams;
   }
+
+  public onClick = async (event: MouseEvent): Promise<void> => {
+    const $target = $(event.target as HTMLElement);
+
+    if ($target.dataset()?.type === 'delete') {
+      await storage.removeItem(`table:${this.$getStateHistory.id}`);
+      await this.$push('/');
+    }
+  };
 
   /**
    * This method will be called when a input event occurs on the component
@@ -63,8 +81,8 @@ export class Header extends ExcelComponent implements IComponent {
       </div>
       
       <div class="excel-header__wrapper-buttons">
-        <div data-type="exit" class="excel-header__button">
-          <i data-type="exit" class="material-icons">exit_to_app</i>
+        <div data-router-link="/" class="excel-header__button">
+          <i data-router-link="/" class="material-icons">exit_to_app</i>
         </div>
         
         <div data-type="delete" class="excel-header__button">
