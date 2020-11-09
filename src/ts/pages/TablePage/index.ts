@@ -58,6 +58,9 @@ export class TablePage implements IPage {
     );
 
     this.store.dispatch(actions.updateDate());
+    this.store.dispatch(
+      actions.changePageId(this.params.router.getStateHistory().id),
+    );
 
     let prevState: TRootState = this.store.getState();
 
@@ -124,5 +127,10 @@ export class TablePage implements IPage {
    */
   public afterRenderElement(): void {
     this.classInstances.forEach((component) => component.init());
+  }
+
+  public destroy(): void {
+    this.unsubscribeFromStorage();
+    this.classInstances.forEach((component) => component.destroy());
   }
 }

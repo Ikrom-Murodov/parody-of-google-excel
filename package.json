@@ -1,6 +1,6 @@
 {
   "name": "parody-of-google-excel",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "This project is a parody of google excel.",
   "main": "src/js/index.js",
   "scripts": {
@@ -51,7 +51,8 @@
     "jest-puppeteer": "^4.4.0",
     "mini-css-extract-plugin": "^0.11.3",
     "node-sass": "^4.14.1",
-    "postcss-loader": "^4.0.3",
+    "postcss": "^8.1.6",
+    "postcss-loader": "^4.0.4",
     "prettier": "^2.0.5",
     "pug": "^3.0.0",
     "pug-loader": "^2.4.0",
