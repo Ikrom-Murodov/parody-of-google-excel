@@ -3,7 +3,7 @@
 ### You can see the finished result by clicking on the [link](https://goldikrom.000webhostapp.com/).
 
 
-This library uses webpack. I added my webpack config to the project. You can learn more [here](https://github.com/Ikrom-Murodov/Webpack-4).
+This application uses webpack. I added my webpack config to the project. You can learn more [here](https://github.com/Ikrom-Murodov/Webpack-4).
 
 # What technologies does this application use ?
 
