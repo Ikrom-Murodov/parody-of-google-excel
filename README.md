@@ -21,9 +21,6 @@ All packages that are dependencies for this application are mine.
 4) [helper-for-dom](https://github.com/Ikrom-Murodov/helper-for-dom).
 5) [add-event-for-dom-elements](https://github.com/Ikrom-Murodov/add-event-for-dom-elements).
 
-I am using my [router](https://github.com/Ikrom-Murodov/router-for-dom) as a routing library for the application.
-
-
 # How to use this application ?
 
 1 Go to the main page. [excel-table](https://github.com/Ikrom-Murodov/Webpack-4) .
