@@ -77,7 +77,7 @@ export class Header extends ExcelComponent implements IComponent {
 
     $wrapper.html(`
       <div class="excel-header__wrapper-input">
-        <input class="excel-header__input" type="text" value="${tableName}" >
+        <input data-type="header-input" class="excel-header__input" type="text" value="${tableName}" >
       </div>
       
       <div class="excel-header__wrapper-buttons">
