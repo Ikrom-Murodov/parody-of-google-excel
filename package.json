@@ -7,7 +7,7 @@
     "dev": "node -r esm webpack/dev.js",
     "build": "node -r esm webpack/prod.js",
     "lint": "eslint ./src",
-    "all-tests": "jest",
+    "unit-tests": "jest src/ts/tests",
     "e2e-tests": "jest e2e/"
   },
   "author": {
