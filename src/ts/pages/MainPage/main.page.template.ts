@@ -13,7 +13,7 @@ function headerTemplate(): string {
       <div class="header__wrapper-content">
         <div class="header__content main-page__container">
           <div class="header__wrapper-title">
-            <h1 class="header__title"> Parody of google excel.</h1>
+            <h1 class="header__title"> Excel.</h1>
            </div>
         </div>
       </div>
